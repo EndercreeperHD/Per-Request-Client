@@ -126,9 +126,13 @@
   <ItemGroup>
     <ClCompile Include="..\Socket\Socket.cpp" />
     <ClCompile Include="ABI-Client.cpp" />
+    <ClCompile Include="MyThread.cpp" />
+    <ClCompile Include="Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Socket\Socket.hpp" />
+    <ClInclude Include="MyThread.h" />
+    <ClInclude Include="Thread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -70,8 +70,8 @@ int Socket::dataAvailable()
     FD_SET(socket, &set);
 
     timeval timeout;
-    timeout.tv_sec = (long)1;   // 1 Sekunde warten
-    timeout.tv_usec = (long)0;
+    timeout.tv_sec = (long)0;   // 1 Sekunde warten
+    timeout.tv_usec = (long)69;
 
     int rc = select(0, &set, NULL, NULL, &timeout);
     return rc;
