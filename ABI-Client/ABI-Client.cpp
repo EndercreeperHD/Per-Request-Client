@@ -9,7 +9,7 @@ using namespace std;
 
 // Zieladresse des Servers
 constexpr int SERVER_PORT = 10000;		// Konstante für den Server-Port - zentraler Ort fuer die Port-Nummer
-constexpr auto SERVER_IP = "10.35.189.3";  // Konstante für den IP-Adresse
+constexpr auto SERVER_IP = "192.168.178.191";  // Konstante für den IP-Adresse
 unsigned char SOH = 0x01;// STart of Header
 unsigned char STX = 0x02;// Start of Text
 unsigned char ETX = 0x03;// End of Text
@@ -186,27 +186,41 @@ int main()
 		}
 		else if (ans == "4") {
 			string str;
+			string senden;
+			string empfangen;
 			Socket work(SERVER_IP, SERVER_PORT);
-			ArduinoThread aT(&work);
+
+			cout << "warte auf Verbindung\n";
+
 			while (work.connect()) {
 				Sleep(400);
 			}
 
 			cout << "Verbindung erfolgreich\n";
 			while (1) {
-				str = (unsigned char)STX;
+
+				senden = STX; // < STX | Befehl | EOT >
 
 				cout << "\n>";
 				getline(cin, str);
+				senden += str;
 
-				str += (unsigned char)ETX;
+				senden += EOT;
+
 				if (str.find("exit") != -1) {
 					break;
 				}
 
-				work.write(str);
+				work.write(senden);
 
 				str = work.readLine();
+				if ((str[0] != STX)) {
+					cout << "STX fehlt\n";
+				}
+				str.erase(str.size() - 1, 1);
+				if (str[str.size() - 1] != EOT) {
+					cout << "EOT fehlt\n";
+				}
 				cout << str;
 			}
 		}
