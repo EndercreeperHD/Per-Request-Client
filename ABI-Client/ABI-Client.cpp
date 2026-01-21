@@ -119,19 +119,25 @@ int main()
 		}
 		else if (ans == "4") {
 			string str;
+			string senden;
 			Socket work(SERVER_IP, SERVER_PORT);
 			ArduinoThread aT(&work);
+
+			cout << "warte auf verbindung mit " << SERVER_IP << "\n";
 			while (work.connect()) {
 				Sleep(400);
 			}
+			cout << "verbindung erfolgreich\n";
 
 			while (1) {
-				str = (unsigned char)STX;
+				senden = STX;
 
 				cout << "\n>";
 				getline(cin, str);
+				senden += str;
 
-				str += (unsigned char)ETX;
+				senden += EOT;
+
 				if (str.find("exit") != -1) {
 					break;
 				}
