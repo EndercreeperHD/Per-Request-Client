@@ -23,9 +23,10 @@ public:
 		for (char B = 'A'; B < 'S' + 1;B++) {
 			work = new Socket(SERVER_IP, SERVER_PORT);
 			while (work == nullptr) {
+				work = new Socket(SERVER_IP, SERVER_PORT);
 				this_thread::sleep_for(chrono::milliseconds(200));
 			}
-			ans = "x";
+			ans = "x";// passwort einfügen
 			ans += " ";
 			ans += (char)(ThreadNr+'0');
 			ans += " ";
